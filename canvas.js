@@ -1,11 +1,11 @@
+// TODO: Use a binary search tree for the nodes array, for better searching
 
 /////////// IMPORT STATEMENTS ////////////////
-import {randomInt, randomColor, distance } from "./utils.js";
-import Node from "./node.js";
+import Nodes from "./nodes.js";
 
 ////////// DEFINE VARIABLES /////////////////
 const canvas = document.querySelector('canvas'); // canvas object from HTML
-const c = canvas.getContext('2d'); // this provides the actual context/area for the canvas
+const context = canvas.getContext('2d'); // this provides the actual context/area for the canvas
 
 canvas.width = innerWidth; // innerWidth is the width of the browser of the window viewport (area being currently viewed)
 canvas.height = innerHeight; // innerHeight is the height of the browser of the window viewport (area being currently viewed)
@@ -32,30 +32,17 @@ addEventListener('resize', () => { // updates the canvas's screen when the brows
 
 
 /////////////////// BEGIN IMPLEMENTATION ///////////////////
-let node1;
-let node2;
+let nodes = new Nodes(10, context, 150, "blue"); 
+    // Create 10 nodes, use main context, set radius = 150px, set each node to "blue"
 function init() {
-  node1 = new Node(300, 300, 100, "black", c);
-  node2 = new Node(undefined, undefined, 30, "red", c);
-
+    nodes.spawnNodes();
 }
 
 // Animation Loop
 function animate() {
-  requestAnimationFrame(animate) // Calls itself to frequently animate the canvas
-  c.clearRect(0, 0, canvas.width, canvas.height) // Resets the canvas for the next animation
-
-  node1.draw();
-  node2.x = mouse.x;
-  node2.y = mouse.y;
-  node2.draw();
-
-  if (distance(node1.x, node1.y, node2.x, node2.y) < node1.radius + node2.radius) {
-    node1.color = "red";
-  }
-  else {
-    node1.color = "black";
-  }
+    requestAnimationFrame(animate) // Calls itself to frequently animate the canvas
+    context.clearRect(0, 0, canvas.width, canvas.height) // Resets the canvas for the next animation
+    nodes.updateNodes(); // re-renders nodes
 }
 
 ///////////////// START EXECUTION ////////////////////
