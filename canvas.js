@@ -1,6 +1,9 @@
+
+/////////// IMPORT STATEMENTS ////////////////
 import {randomInt, randomColor, distance } from "./utils.js";
 import Node from "./node.js";
 
+////////// DEFINE VARIABLES /////////////////
 const canvas = document.querySelector('canvas'); // canvas object from HTML
 const c = canvas.getContext('2d'); // this provides the actual context/area for the canvas
 
@@ -28,7 +31,7 @@ addEventListener('resize', () => { // updates the canvas's screen when the brows
 })
 
 
-// Implementation
+/////////////////// BEGIN IMPLEMENTATION ///////////////////
 let node1;
 let node2;
 function init() {
@@ -36,7 +39,6 @@ function init() {
   node2 = new Node(undefined, undefined, 30, "red", c);
 
 }
-
 
 // Animation Loop
 function animate() {
@@ -47,7 +49,15 @@ function animate() {
   node2.x = mouse.x;
   node2.y = mouse.y;
   node2.draw();
+
+  if (distance(node1.x, node1.y, node2.x, node2.y) < node1.radius + node2.radius) {
+    node1.color = "red";
+  }
+  else {
+    node1.color = "black";
+  }
 }
 
+///////////////// START EXECUTION ////////////////////
 init();
 animate();
