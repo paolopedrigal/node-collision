@@ -17,6 +17,10 @@ export default class Node {
       this.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
       this.context.strokeStyle = this.color;
       this.context.stroke();
+      this.context.font = "75px serif";
+      this.context.textBaseline = "middle";
+      this.context.textAlign = "center";
+      this.context.fillText("Test", this.x, this.y);
       this.context.closePath();
     }
 
